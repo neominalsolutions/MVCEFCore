@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MVCEFCore.Data.Mappings;
+using MVCEFCore.Data.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,10 @@ namespace MVCEFCore.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<ProductFile> Files { get; set; }
+
+        public DbSet<ProductCategoryView> ProductCategoryViews { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
 
@@ -37,6 +42,10 @@ namespace MVCEFCore.Data
         // migration uygulanırken bu kurallar database yansır.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Viewler için hasnoKey olarak işaretliyoruz.
+            // ProductCategory view databasede oluşur
+            // ProductCategoryView dbSet tanımı yaparken HasNoKey ile Table olmadığını söylüyoruz.
+            modelBuilder.Entity<ProductCategoryView>().HasNoKey().ToView("ProductCategory");
 
             //modelBuilder.Entity<Category>(entity =>
             //{

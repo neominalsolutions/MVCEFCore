@@ -11,7 +11,7 @@ namespace MVCEFCore.Data
     {
         public string Id { get; private set; }
         public string Name { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public short Stock { get; set; }
         public string CategoryId { get; set; }
 
@@ -21,6 +21,8 @@ namespace MVCEFCore.Data
         }
 
         public virtual Category Category { get; set; }
+
+        public virtual List<ProductFile> Files { get; set; }
 
     }
 }
